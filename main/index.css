@@ -1,0 +1,212 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+}
+
+h2 {
+    color: #777;
+    text-align: center;
+}
+
+body.connected h2 {
+    color: #bb86fc;
+}
+
+.control-group {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    text-align: left;
+}
+
+h3 {
+    margin-top: 0;
+    color: #777;
+    text-align: center;
+}
+
+body.connected h3 {
+    color: #03dac6;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button,
+select,
+input[type=number] {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button:hover,
+select:hover,
+input[type=number]:hover {
+    background-color: #444;
+}
+
+button.active {
+    background-color: #bb86fc;
+    color: #121212;
+}
+
+button:disabled,
+select:disabled,
+input[type=number]:disabled {
+    background-color: #555;
+    color: #1e1e1e;
+    cursor: not-allowed;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+.volumeValue {
+    color: #777;
+    font-weight: bold;
+}
+
+body.connected .volumeValue {
+    color: #03dac6;
+}
+
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.status-value {
+    font-weight: normal;
+    color: #cfcfcf;
+    background-color: #2a2a2a;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.abx-success {
+    color: #00ff0c
+}
+
+.abx-fail {
+    color: #fe2525
+}
+
+.interpretation {
+    background-color: #272727;
+}
+
+.presets-grid {
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    gap: 10px;
+}
+
+.button-grid button {
+    width: 100%;
+}
+
+.presets-grid button {
+    width: 100%;
+}
+
+.nav-link {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #03dac6;
+    color: #121212;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px 15px;
+    align-items: center;
+}
+
+.primary-btn {
+    background-color: #03dac6;
+    color: #121212;
+    font-weight: bold;
+}
+
+.secondary-btn {
+    display: inline-block;
+    margin-top: 20px;
+    color: #bb86fc;
+    text-decoration: none;
+}
+
+.stop-btn {
+    background-color: #cf6679;
+    color: #121212;
+    font-weight: bold;
+}
+
+.like-btn {
+    background-color: #4caf50;
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 15px;
+    font-size: 1.2em;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.ab-status-value {
+    font-weight: bold;
+    color: #03dac6;
+}

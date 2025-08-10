@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Amp Control</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Control view -->
+        <div id="mainControlView">
+            <div class="control-group">
+                <div class="status-item"><span>Filter:</span> <span id="filterName" class="status-value">NOT
+                        CONNECTED</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <h3>Testing</h3>
+                <div class="button-grid">
+                    <button onclick="switchView('abControlView')" class="primary-btn" disabled>AB</button>
+                    <button onclick="switchView('abxControlView')" class="primary-btn" disabled>ABX</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3>Presets</h3>
+                <div class="presets-grid">
+                    <button id="preset1" onclick="setPreset(1)" disabled>Preset 1</button>
+                    <button id="eqBtn1" onclick="toggleEq(1)" disabled>EQ</button>
+                    <select id="source1" onchange="setSource(1)" disabled>
+                        <option value="0">Scan</option>
+                        <option value="1">XLR</option>
+                        <option value="2">RCA</option>
+                        <option value="4">SPDIF</option>
+                        <option value="5">AES</option>
+                        <option value="6">OPT</option>
+                        <option value="7">EXT</option>
+
+                    </select>
+
+                    <button id="preset2" onclick="setPreset(2)" disabled>Preset 2</button>
+                    <button id="eqBtn2" onclick="toggleEq(2)" disabled>EQ</button>
+                    <select id="source2" onchange="setSource(2)" disabled>
+                        <option value="0">Scan</option>
+                        <option value="1">XLR</option>
+                        <option value="2">RCA</option>
+                        <option value="4">SPDIF</option>
+                        <option value="5">AES</option>
+                        <option value="6">OPT</option>
+                        <option value="7">EXT</option>
+
+                    </select>
+
+                    <button id="preset3" onclick="setPreset(3)" disabled>Preset 3</button>
+                    <button id="eqBtn3" onclick="toggleEq(3)" disabled>EQ</button>
+                    <select id="source3" onchange="setSource(3)" disabled>
+                        <option value="0">Scan</option>
+                        <option value="1">XLR</option>
+                        <option value="2">RCA</option>
+                        <option value="4">SPDIF</option>
+                        <option value="5">AES</option>
+                        <option value="6">OPT</option>
+                        <option value="7">EXT</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="control-group">
+                <h3>Volume</h3>
+                <div class="status-item">
+                    <input type="range" min="-99" max="18" value="0" id="volumeSlider" oninput="updateVolumeLabel()"
+                        onchange="setVolume()" disabled>
+                    <span id="volumeValue" class="volumeValue">0.0 dB</span>
+                </div>
+                <div class="btn-group">
+                    <button id="muteBtn" onclick="toggleMute()" disabled>Mute</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- AB Test View -->
+        <div id="abControlView" style="display:none;">
+            <h2>AB Preset Test</h2>
+
+            <!-- Setup View -->
+            <div id="setupView">
+                <div class="control-group">
+                    <h3>Test Configuration</h3>
+                    <div class="form-grid">
+                        <label for="abPresetA">Preset A:</label>
+                        <select id="abPresetA" oninput="sanitizePresetSelection('abPresetA', 'abPresetB')">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+
+                        <label for="abPresetB">Preset B:</label>
+                        <select id="abPresetB" oninput="sanitizePresetSelection('abPresetB', 'abPresetA')">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                        </select>
+
+                        <label for="minTime">Min. Time (s):</label>
+                        <input type="number" id="minTime" value="5">
+
+                        <label for="maxTime">Max. Time (s):</label>
+                        <input type="number" id="maxTime" value="20">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-grid">
+                        <input type="checkbox" id="ab_mute" name="ab_mute" checked disabled />
+                        <label for="ab_mute">Mute during switching</label>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button onclick="startABTest()" class="primary-btn">Start Test</button>
+                    <button id="backToMainBtn" onclick="switchView('mainControlView')">Back to Main Control</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Test View -->
+        <div id="abActiveView" style="display:none;">
+            <div class="control-group">
+                <h3>Test in Progress...</h3>
+                <div class="status-item">
+                    <span>Elapsed time:</span>
+                    <span id="timer" class="ab-status-value">00:00</span>
+                </div>
+                <button onclick="logLike()" class="like-btn">I like this one!</button>
+            </div>
+            <button onclick="stopABTest()" class="stop-btn">Stop Test</button>
+        </div>
+
+        <!-- Results View -->
+        <div id="abResultsView" style="display:none;">
+            <div class="control-group">
+                <h3>Test Results</h3>
+                <div class="status-item">
+                    <span>Likes for Preset <span id="resultPresetA"></span>:</span>
+                    <span id="likesA" class="ab-status-value">0</span>
+                </div>
+                <div class="status-item">
+                    <span>Likes for Preset <span id="resultPresetB"></span>:</span>
+                    <span id="likesB" class="ab-status-value">0</span>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button onclick="resetABTest()" class="primary-btn">New Test</button>
+                <button id="backToMainBtn" onclick="stopABTestMode()">Back to Main Control</button>
+            </div>
+        </div>
+
+        <div id="abxControlView" style="display:none;">
+            <!-- ABX Test View -->
+            <h2>ABX Preset Test</h2>
+
+            <!-- Setup View -->
+            <div id="setupView">
+                <div class="control-group">
+                    <h3>Test Configuration</h3>
+                    <div class="form-grid">
+                        <label for="abxPresetA">Preset A:</label>
+                        <select id="abxPresetA" oninput="sanitizePresetSelection('abxPresetA', 'abxPresetB')">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+
+                        <label for="abxPresetB">Preset B:</label>
+                        <select id="abxPresetB" oninput="sanitizePresetSelection('abxPresetB', 'abxPresetA')">
+                            <option value="1">1</option>
+                            <option value="2" selected>2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <label for="abxTrials">Trials:</label>
+                        <input type="number" id="abxTrials" value="16">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-grid">
+                        <input type="checkbox" id="abx_mute" name="abx_mute" checked disabled />
+                        <label for="abx_mute">Mute during switching</label>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button onclick="startAbxTest()" class="primary-btn">Start Test</button>
+                    <button id="backToMainBtn" onclick="switchView('mainControlView')">Back to Main Control</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Test View -->
+        <div id="abxActiveView" style="display:none;">
+            <div class="control-group">
+                <h3>Test in Progress... iteration X</h3>
+                <div class="btn-group">
+                    <div class="button-grid">
+                        <button onclick="presetABX('abxPresetABtn')" id="abxPresetABtn" disabled>A</button>
+                        <button onclick="presetABX('abxPresetBBtn')" id="abxPresetBBtn" disabled>B</button>
+                    </div>
+                    <button onclick="presetABX('abxPresetXBtn')" id="abxPresetXBtn" disabled>X</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="button-grid">
+                    <button onclick="xIs('presetA')" disabled>X is A</button>
+                    <button onclick="xIs('presetB')" disabled>X is B</button>
+                </div>
+            </div>
+            <button onclick="stopABXTest()" class="stop-btn">Stop Test</button>
+        </div>
+
+        <!-- Results View -->
+        <div id="abxResultsView" style="display:none;">
+            <div class="control-group">
+                <h3>Test Results</h3>
+                <div class="status-item">
+                    <span>A: </span>
+                    <span class="ab-status-value">Preset <span id="abxResultPresetA">0</span></span>
+                </div>
+                <div class="status-item">
+                    <span>B: </span>
+                    <span class="ab-status-value">Preset <span id="abxResultPresetB">0</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="status-item">
+                    <span>Total Trials (n): </span>
+                    <span class="ab-status-value" id="abxResultTrials">0</span>
+                </div>
+                <div class="status-item">
+                    <span>Correct Answers (k): </span>
+                    <span class="ab-status-value" id="abxResultCorrect">0</span>
+                </div>
+                <div class="status-item">
+                    <span>P-Value: </span>
+                    <span class="ab-status-value" id="abxResultPValue">0</span>
+                </div>
+            </div>
+            <div class="control-group interpretation" id="interpretation">
+            </div>
+            <div class="btn-group">
+                <button onclick="resetABXTest()" class="primary-btn">New Test</button>
+                <button id="backToMainBtn" onclick="switchView('mainControlView')">Back to Main Control</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

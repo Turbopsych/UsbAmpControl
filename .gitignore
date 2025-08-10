@@ -4,7 +4,14 @@
 # ESP-IDF build files
 /build/
 /dist/
+.clangd
 
 # ESP-IDF temporary files and local configs
 sdkconfig.old
 sdkconfig.local
+
+# WLAN config
+secrets.h
+
+# ESP-IDF managed components
+/managed_components/

@@ -1,0 +1,24 @@
+idf_component_register(
+  SRCS
+    "main.c"
+    "usb_driver.h"
+    "usb_driver.c"
+    "web_server.h"
+    "web_server.c"
+    "secrets.h"
+  INCLUDE_DIRS "."
+  EMBED_TXTFILES
+    index.html
+    index.css
+    index.js
+  EMBED_FILES
+    "favicon.ico"
+  REQUIRES
+    driver
+    usb
+    json
+    esp_event
+    esp_http_server
+    esp_wifi
+    nvs_flash
+)
