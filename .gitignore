@@ -1,0 +1,10 @@
+# VS Code
+.vscode/
+
+# ESP-IDF build files
+/build/
+/dist/
+
+# ESP-IDF temporary files and local configs
+sdkconfig.old
+sdkconfig.local
