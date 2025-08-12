@@ -233,6 +233,8 @@ function startAbxTest() {
     abxData.iteration = 0;
     abxData.presetX = Math.random() < 0.5 ? abxData.presetA : abxData.presetB;
 
+    document.getElementById('abxOverallTrials').textContent = abxData.trials;
+
     // start with A
     presetABX('abxPresetABtn');
     switchView('abxActiveView');
@@ -248,19 +250,22 @@ function stopABXTest() {
     document.getElementById('abxResultPresetB').textContent = abxData.presetB;
     document.getElementById('abxResultTrials').textContent = abxData.iteration;
     document.getElementById('abxResultCorrect').textContent = abxData.correct;
-    document.getElementById('abxResultPValue').textContent = pValue.toFixed(4);
 
+    const abxResultPValue = document.getElementById('abxResultPValue');
+    abxResultPValue.textContent = pValue.toFixed(4);
     const interpretationDisplay = document.getElementById('interpretation');
     // Interpretation (common significance level alpha = 0.05)
     const alpha = 0.05;
     if (pValue <= alpha) {
-        interpretationDisplay.textContent = `Since the p-value (${pValue.toFixed(4)}) is less than or equal to the common significance level of ${alpha}, we reject the null hypothesis. This suggests a statistically significant difference (unlikely to be due to chance).`;
-        interpretationDisplay.classList.remove('abx-fail');
-        interpretationDisplay.classList.add('abx-success');
+        interpretationDisplay.textContent =
+            `Since the chance of the results being random is very low (${pValue.toFixed(4) * 100}%) — well below the 5% cutoff — we can conclude there is a real, significant difference.`;
+        abxResultPValue.classList.remove('abx-fail');
+        abxResultPValue.classList.add('abx-success');
     } else {
-        interpretationDisplay.textContent = `Since the p-value (${pValue.toFixed(4)}) is greater than the common significance level of ${alpha}, we fail to reject the null hypothesis. This means there isn't enough evidence to conclude a statistically significant difference (results could be due to chance).`;
-        interpretationDisplay.classList.remove('abx-success');
-        interpretationDisplay.classList.add('abx-fail');
+        interpretationDisplay.textContent =
+            `Since the ${pValue.toFixed(4) * 100}% chance of the results being random is well above the 5% cutoff, we cannot conclude there's a real difference.`;
+        abxResultPValue.classList.remove('abx-success');
+        abxResultPValue.classList.add('abx-fail');
     }
 
     switchView('abxResultsView');
@@ -285,6 +290,8 @@ function xIs(preset) {
     }
     // New X
     abxData.presetX = Math.random() < 0.5 ? abxData.presetA : abxData.presetB;
+    document.getElementById('abxIteration').textContent = abxData.iteration;
+    console.log(abxData.presetX);
 }
 
 // AB tests

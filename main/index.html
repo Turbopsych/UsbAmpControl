@@ -3,9 +3,16 @@
 
 <head>
     <title>Amp Control</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Web interface for USB Amp Control">
+    <meta name="theme-color" content="#2A3443" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
 </head>
 
 <body>
@@ -16,13 +23,6 @@
             <div class="control-group">
                 <div class="status-item"><span>Filter:</span> <span id="filterName" class="status-value">NOT
                         CONNECTED</span>
-                </div>
-            </div>
-            <div class="control-group">
-                <h3>Testing</h3>
-                <div class="button-grid">
-                    <button onclick="switchView('abControlView')" class="primary-btn" disabled>AB</button>
-                    <button onclick="switchView('abxControlView')" class="primary-btn" disabled>ABX</button>
                 </div>
             </div>
 
@@ -80,6 +80,13 @@
                     <button id="muteBtn" onclick="toggleMute()" disabled>Mute</button>
                 </div>
             </div>
+            <div class="control-group">
+                <h3>Testing</h3>
+                <div class="button-grid">
+                    <button onclick="switchView('abControlView')" class="primary-btn" disabled>AB</button>
+                    <button onclick="switchView('abxControlView')" class="primary-btn" disabled>ABX</button>
+                </div>
+            </div>
         </div>
 
 
@@ -116,7 +123,10 @@
                 <div class="control-group">
                     <div class="form-grid">
                         <input type="checkbox" id="ab_mute" name="ab_mute" checked disabled />
-                        <label for="ab_mute">Mute during switching</label>
+                        <label for="ab_mute">
+                            <span>Mute during switching</span>
+                            <span class="label-description">masks switching between presets with and w/o FIR</span>
+                        </label>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -187,7 +197,10 @@
                 <div class="control-group">
                     <div class="form-grid">
                         <input type="checkbox" id="abx_mute" name="abx_mute" checked disabled />
-                        <label for="abx_mute">Mute during switching</label>
+                        <label for="abx_mute">
+                            <span>Mute during switching</span>
+                            <span class="label-description">masks switching between presets with and w/o FIR</span>
+                        </label>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -200,7 +213,7 @@
         <!-- Active Test View -->
         <div id="abxActiveView" style="display:none;">
             <div class="control-group">
-                <h3>Test in Progress... iteration X</h3>
+                <h3>Test in Progress... (<span id="abxIteration">0</span>/<span id="abxOverallTrials">0</span>)</h3>
                 <div class="btn-group">
                     <div class="button-grid">
                         <button onclick="presetABX('abxPresetABtn')" id="abxPresetABtn" disabled>A</button>
@@ -242,7 +255,7 @@
                 </div>
                 <div class="status-item">
                     <span>P-Value: </span>
-                    <span class="ab-status-value" id="abxResultPValue">0</span>
+                    <span id="abxResultPValue">0</span>
                 </div>
             </div>
             <div class="control-group interpretation" id="interpretation">

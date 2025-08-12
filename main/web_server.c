@@ -219,7 +219,6 @@ void reset_test(void) {
   notify_state_changed(NULL);
 }
 
-
 void stop_ab_test(void) {
   ESP_LOGI(TAG_WEB, "Stopping ab test");
   xSemaphoreTake(ab_test_mutex, portMAX_DELAY);

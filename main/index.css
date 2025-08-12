@@ -51,6 +51,17 @@ label {
     font-weight: bold;
 }
 
+.label-description {
+    display: block;
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #aaa;
+}
+
+label>span:first-child {
+    display: block;
+}
+
 .btn-group {
     display: flex;
     gap: 10px;
@@ -97,6 +108,10 @@ input[type="range"] {
 .volumeValue {
     color: #777;
     font-weight: bold;
+    white-space: nowrap;
+    width: 96px;
+    padding: 0 8px;
+    text-align: end;
 }
 
 body.connected .volumeValue {
@@ -127,11 +142,11 @@ body.connected .volumeValue {
 }
 
 .abx-success {
-    color: #00ff0c
+    color: #00ff1b
 }
 
 .abx-fail {
-    color: #fe2525
+    color: #f95c5c
 }
 
 .interpretation {
@@ -204,9 +219,9 @@ body.connected .volumeValue {
     align-items: center;
     margin-bottom: 10px;
     font-size: 1.1em;
+    font-weight: bold;
 }
 
 .ab-status-value {
-    font-weight: bold;
     color: #03dac6;
 }
