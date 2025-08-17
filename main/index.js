@@ -364,6 +364,11 @@ function stopABTestMode() {
     switchView('mainControlView');
 }
 
+function stopABXTestMode() {
+    sendCommand('disable_test_mode', 0);
+    switchView('mainControlView');
+}
+
 function logLike() {
     switch (currentPreset) {
         case abData.presetA:
@@ -476,8 +481,6 @@ function updateUI(state) {
         } else {
             switchView('abControlView');
         }
-    } else {
-        switchView('mainControlView');
     }
     disableUI(currentPreset == 0);
 }
