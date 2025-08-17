@@ -4,6 +4,9 @@ This project transforms an ESP32-S3 development board into a sophisticated remot
 
 The primary motivation was to create a flexible and modern control solution that goes beyond a standard IR remote, enabling control via a web browser and integration into smart home systems. The project was developed by reverse-engineering the proprietary USB HID protocol used by the Hypex Filter Designer (HFD) software.
 
+## **DISCLAIMER**
+**Use at your own risk**. This has been implemented based on the communication of the HFD app and an FA253 with firmware v5.7.There might be differences between other versions.
+
 ## **Features**
 
 * **Web-Based Control:** A clean, responsive web interface to control all major amplifier functions.  
